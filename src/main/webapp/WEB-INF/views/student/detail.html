@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h1 style="color: red">Student Detail</h1></legend>
+    <p>
+        <button><a href="/students">Student List</a></button>
+    </p>
+    <form th:object="${student}">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" th:field="*{firstName}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" th:field="*{lastName}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Birthday</td>
+                <td><input type="text" th:field="*{birthday}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" th:field="*{address}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Sex</td>
+                <td><input type="text" th:field="*{sex}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" th:field="*{phone}" disabled/></td>
+            </tr>
+            <tr>
+                <td>Classroom</td>
+                <td th:text="${student.getClassRoom().getName()}" style="color: blue"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

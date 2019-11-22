@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend style="color: red"><h1>Create Student</h1></legend>
+    <p><button><a href="/students">Student List</a></button></p>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+    <form action="@{/create-student}" th:object="${student}" method="post">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" th:field="*{firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" th:field="*{lastName}"></td>
+            </tr>
+            <tr>
+                <td>Birthday</td>
+                <td><input type="date" th:field="*{birthday}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" th:field="*{address}"></td>
+            </tr>
+            <tr>
+                <td>Sex</td>
+                <td><input type="text" th:field="*{sex}"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" th:field="*{phone}"></td>
+            </tr>
+            <tr>
+                <td>Classroom</td>
+                <td>
+                    <select th:field="*{classRoom}">
+                        <option th:each="p : ${classrooms}" th:value="${p.id}" th:text="${p.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Create Student" style="color: blue"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

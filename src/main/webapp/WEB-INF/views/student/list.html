@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+<style>
+    button {
+        text-align: center;
+    }
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+    tr {
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+    td {
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+    th {
+        color: chocolate;
+    }
+    form{
+        margin-top: 15px;
+    }
+    #so {
+        margin-left: 43px
+    }
+</style>
+<body>
+<fieldset style="height: fit-content; width: fit-content">
+    <legend style="color: red"><h1>Student List</h1></legend>
+    <p><button><a href="/create-student">Create new Student</a></button></p>
+    <form action="/searchByClassroom" onchange="this.submit()">
+        <a style="color: darkred">Search by Classroom</a>
+        <select name="searchClassroom">
+            <option value="-1">All</option>
+            <option th:each="c:${classrooms}" th:text="${c.name}" th:value="${c.getId()}" th:selected="(${c.id} == ${searchCategory})"></option>
+        </select>
+    </form>
+    <table border="1">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birthday</th>
+            <th>Address</th>
+            <th>Sex</th>
+            <th>Phone</th>
+            <th>Class</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Detail</th>
+        </tr>
+        <th:block th:each="student: ${students}">
+        <tr>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:date="${student.birthday}"></td>
+            <td th:text="${student.address}"></td>
+            <td th:text="${student.sex}"></td>
+            <td th:text="${student.phone}"></td>
+            <td th:text="${student.getClassRoom().getName()}"></td>
+            <td><a th:href="@{/edit-student/__${student.id}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-student/__${student.id}__ }">Delete</a></td>
+            <td><a th:href="@{/detail-student/__${student.id}__ }">Detail</a></td>
+        </tr>
+        </th:block>
+        <div>
+            <a th:href="@{'/students'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
+            <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
+            <a th:href="@{'/students'(page=${students.number + 1})}" th:if="${students.hasNext()}">Next</a>
+        </div>
+    </table>
+</fieldset>
+</body>
+</html>
